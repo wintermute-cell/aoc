@@ -10,6 +10,8 @@ pkgs.mkShell {
     pkg-config
     cmake
     gdb
+    libgcc
+    pkgs.glibc.static # useful for static linking (but that shouldnt be relevant since we time inside the program)
   ];
 
   shellHook = '''';

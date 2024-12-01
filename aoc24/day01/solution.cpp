@@ -22,7 +22,10 @@ void solve1() {
         std::string line;
         uint32_t lnum, rnum;
         while (std::getline(file, line)) {
-            std::sscanf(line.c_str(), "%d %d", &lnum, &rnum);
+            char* cstr = const_cast<char*>(line.c_str());
+            cstr[5] = '\0';
+            lnum = std::atoi(cstr);
+            rnum = std::atoi(cstr + 8);
 
             lnums.push_back(lnum);
             rnums.push_back(rnum);
@@ -54,13 +57,14 @@ void solve2() {
 
     if (file.is_open()) {
         std::string line;
-        uint32_t lnum, rnum;
+        uint32_t rnum;
         while (std::getline(file, line)) {
-            std::sscanf(line.c_str(), "%d %d", &lnum, &rnum);
+            char* cstr = const_cast<char*>(line.c_str());
+            cstr[5] = '\0';
+            lnums.push_back(std::atoi(cstr));
+            rnum = std::atoi(cstr + 8);
 
-            lnums.push_back(lnum);
-
-            // track the number of occurences
+            // track the number of occurrences
             if (rnums.contains(rnum))
                 rnums[rnum]++;
             else

@@ -1,5 +1,6 @@
 #include <chrono>
 #include <iostream>
+#include <thread>
 
 extern void solve1();
 extern void solve2();
@@ -16,13 +17,38 @@ void call_with_timer(void (*func)(), const char *name) {
               << std::endl;
 }
 
+void warmup_cpu(int seconds) {
+    unsigned int n_threads = std::thread::hardware_concurrency();
+    std::vector<std::thread> threads;
+
+    auto work = [seconds]() {
+        auto end = std::chrono::high_resolution_clock::now() + std::chrono::seconds(seconds);
+        while (std::chrono::high_resolution_clock::now() < end) {
+            volatile int x = 0;
+            for (int i = 0; i < 1000000; ++i) x += i;
+        }
+    };
+
+    std::cout << "Warming up CPU for " << seconds << " seconds..." << std::endl;
+
+    for (unsigned int i = 0; i < n_threads; ++i) {
+        threads.emplace_back(work);
+    }
+
+    for (auto &t : threads) {
+        t.join();
+    }
+}
+
 int main() {
     std::cout << "Solution 1:" << std::endl;
     std::cout << "===========" << std::endl;
+    warmup_cpu(4);
     call_with_timer(solve1, "solve1()");
 
     std::cout << "Solution 2:" << std::endl;
     std::cout << "===========" << std::endl;
+    warmup_cpu(4);
     call_with_timer(solve2, "solve2()");
 
     return 0;
