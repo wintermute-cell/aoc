@@ -22,6 +22,7 @@ int main() {
     call_with_timer(solve1, "solve1()");
 
     std::cout << "Solution 2:" << std::endl;
+    std::cout << "===========" << std::endl;
     call_with_timer(solve2, "solve2()");
 
     return 0;

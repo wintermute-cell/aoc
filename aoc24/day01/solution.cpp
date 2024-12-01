@@ -15,23 +15,23 @@ void solve1() {
     std::vector<int32_t> lnums;
     std::vector<int32_t> rnums;
 
-    lnums.reserve(1100);
-    rnums.reserve(1100);
+    lnums.reserve(1001);
+    rnums.reserve(1001);
 
     if (file.is_open()) {
         std::string line;
+        uint32_t lnum, rnum;
         while (std::getline(file, line)) {
-            std::vector<std::string> this_line_nums;
-            std::istringstream iss(line);
-            std::string lnum, rnum;
-            iss >> lnum >> rnum;
+            std::sscanf(line.c_str(), "%d %d", &lnum, &rnum);
 
-            lnums.push_back(std::stoul(lnum));
-            rnums.push_back(std::stoul(rnum));
+            lnums.push_back(lnum);
+            rnums.push_back(rnum);
         }
     } else {
         std::cerr << "Failed to open file" << std::endl;
     }
+
+    file.close();
 
     std::sort(lnums.begin(), lnums.end());
     std::sort(rnums.begin(), rnums.end());
@@ -54,14 +54,11 @@ void solve2() {
 
     if (file.is_open()) {
         std::string line;
+        uint32_t lnum, rnum;
         while (std::getline(file, line)) {
-            std::vector<std::string> this_line_nums;
-            std::istringstream iss(line);
-            std::string lnumStr, rnumStr;
-            iss >> lnumStr >> rnumStr;
+            std::sscanf(line.c_str(), "%d %d", &lnum, &rnum);
 
-            lnums.push_back(std::stoul(lnumStr));
-            auto rnum = std::stoul(rnumStr);
+            lnums.push_back(lnum);
 
             // track the number of occurences
             if (rnums.contains(rnum))
@@ -72,6 +69,8 @@ void solve2() {
     } else {
         std::cerr << "Failed to open file" << std::endl;
     }
+
+    file.close();
 
     uint64_t similarity_score = 0;
     for (size_t i = 0; i < lnums.size(); i++) {
