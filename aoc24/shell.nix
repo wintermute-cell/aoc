@@ -1,5 +1,5 @@
 { pkgs ? import (fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/nixos-24.05.tar.gz";
+    url = "https://github.com/NixOS/nixpkgs/archive/nixos-24.11.tar.gz";
   }) {}
 }:
 
