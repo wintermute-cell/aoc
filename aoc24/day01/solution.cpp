@@ -9,6 +9,15 @@
 #include <unordered_map>
 #include <vector>
 
+// Fast fixed-width number parser
+inline uint32_t parse_number(const char* str, size_t length) {
+    uint32_t num = 0;
+    for (size_t i = 0; i < length; ++i) {
+        num = num * 10 + (str[i] - '0');
+    }
+    return num;
+}
+
 void solve1() {
     std::ifstream file("day01/input1.txt");
 
@@ -22,10 +31,12 @@ void solve1() {
         std::string line;
         uint32_t lnum, rnum;
         while (std::getline(file, line)) {
-            char* cstr = const_cast<char*>(line.c_str());
-            cstr[5] = '\0';
-            lnum = std::atoi(cstr);
-            rnum = std::atoi(cstr + 8);
+            // char* cstr = const_cast<char*>(line.c_str());
+            // cstr[5] = '\0';
+            // lnum = std::atoi(cstr);
+            // rnum = std::atoi(cstr + 8);
+            lnum = parse_number(line.c_str(), 5);
+            rnum = parse_number(line.c_str() + 8, 5);
 
             lnums.push_back(lnum);
             rnums.push_back(rnum);
@@ -44,7 +55,7 @@ void solve1() {
         sum += std::abs(rnums[i] - lnums[i]);
     }
 
-    std::cout << sum << std::endl;
+    // std::cout << sum << std::endl;
 }
 
 void solve2() {
@@ -81,5 +92,5 @@ void solve2() {
         similarity_score += rnums[lnums[i]] * lnums[i];
     }
 
-    std::cout << similarity_score << std::endl;
+    // std::cout << similarity_score << std::endl;
 }
