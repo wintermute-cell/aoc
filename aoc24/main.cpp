@@ -36,7 +36,7 @@ void warmup_cpu(int seconds) {
         threads.emplace_back(work);
     }
 
-    for (auto &t : threads) {
+    for (auto& t : threads) {
         t.join();
     }
 }
