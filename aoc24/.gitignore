@@ -1,2 +1,4 @@
 advent
 .direnv/
+.cache
+compile_commands.json

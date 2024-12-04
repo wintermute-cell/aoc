@@ -13,7 +13,8 @@ double call_with_timer(void (*func)()) {
     auto end = high_resolution_clock::now();
     auto duration_millis = duration_cast<nanoseconds>(end - start) / 1000000.0;
     // std::cout << "Done with " << name << std::endl;
-    // std::cout << name << " execution time: " << duration_millis.count() << " ms"
+    // std::cout << name << " execution time: " << duration_millis.count() << "
+    // ms"
     //           << std::endl;
     return duration_millis.count();
 }
@@ -23,14 +24,16 @@ void warmup_cpu(int seconds) {
     std::vector<std::thread> threads;
 
     auto work = [seconds]() {
-        auto end = std::chrono::high_resolution_clock::now() + std::chrono::seconds(seconds);
+        auto end = std::chrono::high_resolution_clock::now() +
+                   std::chrono::seconds(seconds);
         while (std::chrono::high_resolution_clock::now() < end) {
             volatile int x = 0;
             for (int i = 0; i < 1000000; ++i) x += i;
         }
     };
 
-    std::cout << "Warming up CPU for " << seconds << " seconds..." << std::endl;
+    std::cout << "Warming up CPU for " << seconds << " seconds..."
+              << std::endl;
 
     for (unsigned int i = 0; i < n_threads; ++i) {
         threads.emplace_back(work);
@@ -51,14 +54,16 @@ int main() {
         double time = call_with_timer(solve1);
         fastest_time_solve1 = std::min(fastest_time_solve1, time);
     }
-    std::cout << "Fastest time for solve1(): " << fastest_time_solve1 << " ms" << std::endl;
+    std::cout << "Fastest time for solve1(): " << fastest_time_solve1 << " ms"
+              << std::endl;
 
     std::cout << "\nRunning solve2() " << N << " times..." << std::endl;
     for (int i = 0; i < N; ++i) {
         double time = call_with_timer(solve2);
         fastest_time_solve2 = std::min(fastest_time_solve2, time);
     }
-    std::cout << "Fastest time for solve2(): " << fastest_time_solve2 << " ms" << std::endl;
+    std::cout << "Fastest time for solve2(): " << fastest_time_solve2 << " ms"
+              << std::endl;
 
     // std::cout << "Solution 1:" << std::endl;
     // std::cout << "===========" << std::endl;

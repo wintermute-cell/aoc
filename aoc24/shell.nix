@@ -11,7 +11,9 @@ pkgs.mkShell {
     cmake
     gdb
     libgcc
-    pkgs.glibc.static # useful for static linking (but that shouldnt be relevant since we time inside the program)
+    glfw
+    bear
+    #pkgs.glibc.static # useful for static linking (but that shouldnt be relevant since we time inside the program)
     llvmPackages_19.openmp
   ];
 
