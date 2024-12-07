@@ -1,13 +1,14 @@
 CXX := g++
-CXXFLAGS := -std=c++20 -Wall -Wextra -O3
-#-static -funroll-loops
+CXXFLAGS := -std=c++20 -Wall -Wextra -static -O1 -g3
+#-O3 -static -flto -funroll-loops
 LDFLAGS := 
 #-lGL -ldl -lglfw
+MYLIB_DIR := -I./lib
 
 # === OPENGL
 #INCLUDE_DIR := -I./include
 #GLAD_SRC := ./src/glad.c
-#BEAR := bear --
+BEAR := bear --
 # === END OPENGL
 
 OUTPUT := advent
@@ -24,7 +25,7 @@ all:
 build:
 	@if [ -f "day$(DAY)/solution.cpp" ]; then \
 		echo "Compiling for day $(DAY)..."; \
-		$(BEAR) $(CXX) $(CXXFLAGS) $(INCLUDE_DIR) $(GLAD_SRC) main.cpp day$(DAY)/solution.cpp -o $(OUTPUT) $(LDFLAGS); \
+		$(BEAR) $(CXX) $(CXXFLAGS) $(INCLUDE_DIR) $(MYLIB_DIR) $(GLAD_SRC) main.cpp day$(DAY)/solution.cpp -o $(OUTPUT) $(LDFLAGS); \
 		echo "Built: ./$(OUTPUT)"; \
 	else \
 		echo "Error: solution file for day $(DAY) not found!"; \

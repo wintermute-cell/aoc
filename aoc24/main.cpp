@@ -12,10 +12,6 @@ double call_with_timer(void (*func)()) {
     func();
     auto end = high_resolution_clock::now();
     auto duration_millis = duration_cast<nanoseconds>(end - start) / 1000000.0;
-    // std::cout << "Done with " << name << std::endl;
-    // std::cout << name << " execution time: " << duration_millis.count() << "
-    // ms"
-    //           << std::endl;
     return duration_millis.count();
 }
 
